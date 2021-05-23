@@ -1,6 +1,6 @@
 const inquirer = require('inquirer')
 
-const suits = ['Clubs ♣️', 'Diamonds ♦️', 'Hearts ♥️', 'Spades ♠️']
+const suits = ['♣️', '♦️', '♥️', '♠️']
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
 
 // function to build a deck of cards (eg. [spades, A])
@@ -99,7 +99,7 @@ const findNumberScore = (
 }
 
 const printCard = (cardArray: string[]) => {
-  return `${cardArray[0]} of ${cardArray[1]}`
+  return `${cardArray[1]} ${cardArray[0]}`
 }
 
 interface GameCards {
@@ -157,7 +157,7 @@ const playGame = () => {
 
   console.log(`\nUser first card is ${printCard(userFirstCard)}`)
   console.log(`User second card is ${printCard(userSecondCard)}`)
-  console.log(`User current score: Suits: ${userSuitScore} and ${userNumScore}\n`)
+  console.log(`User current score: Suits: ${userSuitScore}  and Number: ${userNumScore}\n`)
 
   setTimeout(() => {
     inquirer
@@ -185,7 +185,7 @@ const playGame = () => {
         }
 
         console.log(`\n${userDrawCard ? `User drew ${printCard(userDrawCard)}` : ''}`)
-        console.log(`User score: Suits: ${userSuitScore} and ${userNumScore}\n`)
+        console.log(`User score: Suits: ${userSuitScore}  and Number: ${userNumScore}\n`)
 
         const gameCards: GameCards = {
           userNum: Number(userNumScore),
@@ -196,10 +196,10 @@ const playGame = () => {
 
         const winner = gameLogic(gameCards)
 
-        console.log(`Bot cards are: ${printCard(botFirstCard)}, ${printCard(botSecondCard)} ${
+        console.log(`Bot cards are: ${printCard(botFirstCard)} ${botDrawCard ? ' ,' : ' and'} ${printCard(botSecondCard)} ${
           botDrawCard ? ` and ${printCard(botDrawCard)}` : ''
         }`)
-        console.log(`Bot score: Suits: ${botSuitScore} and ${botNumScore}\n`)
+        console.log(`Bot score: Suits: ${botSuitScore}  and Number: ${botNumScore}\n`)
 
         if(winner === 'User') {
           console.log('🍾CONGRATULATIONS🍾\nYou Win 🎊\n')
