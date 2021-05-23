@@ -1,6 +1,6 @@
 {
   "name": "shan-koe-mee",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "traditional card game",
   "main": "index.js",
   "bin": {
