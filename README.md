@@ -2,9 +2,9 @@
 
 *Burmese tranditional card game*
 ---
-####Clone the repo and install the dependencises####
+#### Clone the repo and install the dependencises
 `npm install`
-####Start the game####
+#### Start the game
 `npm start`
 ---
 
