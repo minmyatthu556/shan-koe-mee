@@ -2,7 +2,6 @@
 
 *Burmese tranditional card game*
 ---
-##To install
 clone the repo and install the dependencises with
 `npm install`
 and start the game with
