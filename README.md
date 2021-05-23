@@ -3,9 +3,9 @@
 *Burmese tranditional card game*
 ---
 #### Clone the repo and install the dependencises using
-`npm install`
+#### `npm install`
 #### To start the program
-`npm start`
+#### `npm start`
 ---
 ## How to play
 1. Both user and bot are first given two cards each. 
