@@ -1,6 +1,6 @@
 "use strict";
 const inquirer = require('inquirer');
-const suits = ['Clubs ♣', 'Diamonds ♦', 'Hearts ♥', 'Spades ♠️'];
+const suits = ['Clubs ♣️', 'Diamonds ♦️', 'Hearts ♥️', 'Spades ♠️'];
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A'];
 // function to build a deck of cards (eg. [spades, A])
 const buildADeck = () => {
@@ -79,6 +79,9 @@ const findNumberScore = (arrayA, arrayB, arrayC = null) => {
     }
     return sum;
 };
+const printCard = (cardArray) => {
+    return `${cardArray[0]} of ${cardArray[1]}`;
+};
 // decide the winner
 const gameLogic = (gameCards) => {
     let winner = '';
@@ -122,9 +125,9 @@ const playGame = () => {
         botSuitScore = findBiggerSuit(botFirstCard, botSecondCard, botDrawCard);
         botNumScore = findNumberScore(botFirstCard, botSecondCard, botDrawCard);
     }
-    console.log(`\nUser first card is ${userFirstCard[0]} of ${userFirstCard[1]}`);
-    console.log(`User second card is ${userSecondCard[0]} of ${userSecondCard[1]}`);
-    console.log(`User current score: Suits: ${userSuitScore} and ${userNumScore}`);
+    console.log(`\nUser first card is ${printCard(userFirstCard)}`);
+    console.log(`User second card is ${printCard(userSecondCard)}`);
+    console.log(`User current score: Suits: ${userSuitScore} and ${userNumScore}\n`);
     setTimeout(() => {
         inquirer
             .prompt([
@@ -141,18 +144,23 @@ const playGame = () => {
                 userSuitScore = findBiggerSuit(userFirstCard, userSecondCard, userDrawCard);
                 userNumScore = findNumberScore(userFirstCard, userSecondCard, userDrawCard);
             }
-            console.log(`${userDrawCard ? `User drew ${userDrawCard[0]} of ${userDrawCard[1]}` : ""}`);
-            console.log(`User score: Suits: ${userSuitScore} and ${userNumScore}`);
+            console.log(`\n${userDrawCard ? `User drew ${printCard(userDrawCard)}` : ''}`);
+            console.log(`User score: Suits: ${userSuitScore} and ${userNumScore}\n`);
             const gameCards = {
                 userNum: Number(userNumScore),
                 userSuit: userSuitScore,
                 botNum: Number(botNumScore),
-                botSuit: botSuitScore
+                botSuit: botSuitScore,
             };
             const winner = gameLogic(gameCards);
-            console.log(`Bot cards are: ${botFirstCard[0]} of ${botFirstCard[1]}, ${botSecondCard[0]} of ${botSecondCard[1]} ${botDrawCard ? `, ${botDrawCard[0]} of ${botDrawCard[1]}` : ''}`);
-            console.log(`Bot score: Suits: ${botSuitScore} and ${botNumScore}`);
-            console.log('Winner: ', winner);
+            console.log(`Bot cards are: ${printCard(botFirstCard)}, ${printCard(botSecondCard)} ${botDrawCard ? ` and ${printCard(botDrawCard)}` : ''}`);
+            console.log(`Bot score: Suits: ${botSuitScore} and ${botNumScore}\n`);
+            if (winner === 'User') {
+                console.log('🍾CONGRATULATIONS🍾\nYou Win 🎊\n');
+            }
+            else {
+                console.log('Sorry 😞 bot wins. Good luck next time 🍀\n');
+            }
         });
     }, 1000);
 };
