@@ -18,7 +18,7 @@ const buildADeck = () => {
 let deck = buildADeck();
 // function to return a random card from deck and remove that card from deck
 const drawACard = () => {
-    const randomIndex = Math.floor(Math.random() * (deck.length));
+    const randomIndex = Math.floor(Math.random() * deck.length);
     const chosenCard = deck[randomIndex];
     deck = deck.filter((card) => card !== chosenCard);
     return chosenCard;
@@ -40,9 +40,12 @@ const playGame = () => {
         botSuitScore = logics_1.findBiggerSuit(botFirstCard, botSecondCard, botDrawCard);
         botNumScore = logics_1.findNumberScore(botFirstCard, botSecondCard, botDrawCard);
     }
-    console.log(`\nUser first card is ${helpers_1.printCard(userFirstCard)}`);
-    console.log(`User second card is ${helpers_1.printCard(userSecondCard)}`);
-    console.log(`User current score: Suits: ${userSuitScore}  and Number: ${userNumScore}\n`);
+    console.log('🃏 Welcome To Shan-Koe-Mee 🃏');
+    setTimeout(() => {
+        console.log(`\nUser first card is ${helpers_1.printCard(userFirstCard)}`);
+        console.log(`User second card is ${helpers_1.printCard(userSecondCard)}`);
+        console.log(`User current score: Suits: ${userSuitScore}  and Number: ${userNumScore}\n`);
+    }, 1000);
     setTimeout(() => {
         inquirer
             .prompt([
@@ -71,18 +74,18 @@ const playGame = () => {
                 userThird: userDrawCard,
                 botFirst: botFirstCard,
                 botSecond: botSecondCard,
-                botThird: botDrawCard
+                botThird: botDrawCard,
             };
             const winner = logics_1.gameLogic(gameCards);
             console.log(`Bot cards are: ${helpers_1.printCard(botFirstCard)} ${botDrawCard ? ' ,' : ' and'} ${helpers_1.printCard(botSecondCard)} ${botDrawCard ? ` and ${helpers_1.printCard(botDrawCard)}` : ''}`);
             console.log(`Bot score: Suits: ${botSuitScore}  and Number: ${botNumScore}\n`);
             if (winner === 'User') {
-                console.log('🍾CONGRATULATIONS🍾\nYou Win 🎊\n');
+                console.log('🍾CONGRATULATIONS🍾\nYou Win This Round 🎊\n');
             }
             else {
-                console.log('Sorry 😞 bot wins. Good luck next time 🍀\n');
+                console.log('Sorry 😞 bot wins this round. Good luck next time 🍀\n');
             }
         });
-    }, 1000);
+    }, 2000);
 };
 playGame();
