@@ -16,31 +16,6 @@ exports.turnKQJto10 = (card) => {
     }
     return number;
 };
-exports.findBiggerSuit = (firstCard, secondCard, thirdCard = null) => {
-    if (!thirdCard) {
-        if (firstCard[1] !== secondCard[1]) {
-            const cardWithBiggerNum = numbers.indexOf(firstCard[1]) > numbers.indexOf(secondCard[1]) ? firstCard : secondCard;
-            return cardWithBiggerNum[0];
-        }
-        else {
-            if (suits.indexOf(firstCard[0]) > suits.indexOf(secondCard[0])) {
-                return firstCard[0];
-            }
-            else {
-                return secondCard[0];
-            }
-        }
-    }
-    else {
-        const max = Math.max(numbers.indexOf(firstCard[1]), numbers.indexOf(secondCard[1]), numbers.indexOf(thirdCard[1]));
-        if (max === numbers.indexOf(firstCard[1])) {
-            return firstCard[0];
-        }
-        else if (max === numbers.indexOf(secondCard[1])) {
-            return secondCard[0];
-        }
-        else {
-            return thirdCard[0];
-        }
-    }
+exports.printCard = (cardArray) => {
+    return `${cardArray[1]} ${cardArray[0]}`;
 };

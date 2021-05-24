@@ -81,7 +81,7 @@ export const findBiggerSuit = (
   }
 }
 
-// find the score of the number of the two cards
+// find the score of the number of the cards
 export const findNumberScore = (
   firstCard: string[],
   secondCard: string[],
@@ -100,7 +100,7 @@ export const findNumberScore = (
 
   let sum = numA + numB + numC
 
-  if (sum === 20 || sum === 30) {
+  if (sum === 30) {
     sum = 0
   } else if (sum > 19) {
     sum -= 20

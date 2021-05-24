@@ -17,7 +17,7 @@ describe('The game returns the card with the bigger suit', () => {
       expect(findBiggerSuit(['♥️', '5'], ['♠️', '5'], ['♣️', '5'])).toBe('♠️')
     })
     test('with three different cards', () => {
-      expect(findBiggerSuit(['♥️', '5'], ['♠️', '3'], ['♣️', '9'])).toBe('♣️')
+      expect(findBiggerSuit(['♥️', 'K'], ['♠️', 'Q'], ['♣️', 'A'])).toBe('♣️')
     })
     test('with first and second card with same number and the number is larger than the third', () => {
       expect(findBiggerSuit(['♥️', '5'], ['♠️', '5'], ['♣️', '2'])).toBe('♠️')
@@ -38,5 +38,26 @@ describe('The game returns the card with the bigger suit', () => {
       expect(findBiggerSuit(['♥️', 'A'], ['♣️', '5'], ['♠️', '5'])).toBe('♥️')
     })
   })
-  
+})
+
+describe('The game returns the number score of the two or three cards', () => {
+  describe('With two cards', () => {
+    test('returns the score of the cards with no edge case', () => {
+      expect(findNumberScore(['♠️', '3'], ['♣️', '9'])).toBe(2)
+    })
+    test('returns 0 when the sum is 20', () => {
+      expect(findNumberScore(['♠️', 'K'], ['♣️', 'Q'])).toBe(0)
+    })
+    test('returns 0 when the sum is 10', () => {
+      expect(findNumberScore(['♠️', '9'], ['♣️', 'A'])).toBe(0)
+    })
+  })
+  describe('With three cards', () => {
+    test('returns the score of the three cards with no edge case', () => {
+      expect(findNumberScore(['♥️', '2'], ['♥️', '7'], ['♠️', '7'])).toBe(6)
+    })
+    test('returns 0 when the sum is 30', () => {
+      expect(findNumberScore(['♥️', 'K'], ['♥️', 'Q'], ['♠️', 'J'])).toBe(0)
+    })
+  })
 })
