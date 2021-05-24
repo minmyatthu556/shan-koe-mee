@@ -1,6 +1,17 @@
 const suits = ['♣️', '♦️', '♥️', '♠️']
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
 
+// function to build a deck of cards (eg. [spades, A])
+export const buildADeck = (): string[][] => {
+  let deck: string[][] = []
+  for (let i = 0; i < suits.length; i++) {
+    for (let j = 0; j < numbers.length; j++) {
+      deck.push([suits[i], numbers[j]])
+    }
+  }
+  return deck
+}
+
 // turn K, Q, J into the value of 10 and A into the value of 1
 export const turnKQJto10 = (card: string[]): number => {
   let number: number = 0

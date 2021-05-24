@@ -5,17 +5,7 @@ const helpers_1 = require("./utils/helpers");
 const logics_1 = require("./utils/logics");
 const suits = ['♣️', '♦️', '♥️', '♠️'];
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A'];
-// function to build a deck of cards (eg. [spades, A])
-const buildADeck = () => {
-    let deck = [];
-    for (let i = 0; i < suits.length; i++) {
-        for (let j = 0; j < numbers.length; j++) {
-            deck.push([suits[i], numbers[j]]);
-        }
-    }
-    return deck;
-};
-let deck = buildADeck();
+let deck = helpers_1.buildADeck();
 // function to return a random card from deck and remove that card from deck
 const drawACard = () => {
     const randomIndex = Math.floor(Math.random() * deck.length);

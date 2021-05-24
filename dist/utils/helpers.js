@@ -2,6 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const suits = ['♣️', '♦️', '♥️', '♠️'];
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A'];
+// function to build a deck of cards (eg. [spades, A])
+exports.buildADeck = () => {
+    let deck = [];
+    for (let i = 0; i < suits.length; i++) {
+        for (let j = 0; j < numbers.length; j++) {
+            deck.push([suits[i], numbers[j]]);
+        }
+    }
+    return deck;
+};
 // turn K, Q, J into the value of 10 and A into the value of 1
 exports.turnKQJto10 = (card) => {
     let number = 0;

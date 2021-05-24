@@ -1,26 +1,10 @@
 const inquirer = require('inquirer')
 
-import { turnKQJto10, printCard } from './utils/helpers'
-import {
-  findBiggerSuit,
-  findNumberScore,
-  gameLogic,
-  GameCards,
-} from './utils/logics'
+import { buildADeck, turnKQJto10, printCard } from './utils/helpers'
+import { findBiggerSuit, findNumberScore, gameLogic, GameCards, } from './utils/logics'
 
 const suits = ['♣️', '♦️', '♥️', '♠️']
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
-
-// function to build a deck of cards (eg. [spades, A])
-const buildADeck = (): string[][] => {
-  let deck: string[][] = []
-  for (let i = 0; i < suits.length; i++) {
-    for (let j = 0; j < numbers.length; j++) {
-      deck.push([suits[i], numbers[j]])
-    }
-  }
-  return deck
-}
 
 let deck = buildADeck()
 
@@ -78,16 +62,8 @@ const playGame = () => {
       .then((answer: { response: string }) => {
         if (answer.response === 'yes') {
           userDrawCard = drawACard()
-          userSuitScore = findBiggerSuit(
-            userFirstCard,
-            userSecondCard,
-            userDrawCard
-          )
-          userNumScore = findNumberScore(
-            userFirstCard,
-            userSecondCard,
-            userDrawCard
-          )
+          userSuitScore = findBiggerSuit(userFirstCard, userSecondCard, userDrawCard)
+          userNumScore = findNumberScore(userFirstCard, userSecondCard, userDrawCard)
         }
 
         console.log(

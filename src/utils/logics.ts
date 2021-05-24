@@ -127,6 +127,7 @@ export interface GameCards {
 // decide the winner
 export const gameLogic = (gameCards: GameCards): string => {
   let winner: string = ''
+  
   const {
     userNum,
     botNum,
@@ -139,6 +140,7 @@ export const gameLogic = (gameCards: GameCards): string => {
     botSecond,
     botThird,
   } = gameCards
+
   let userBiggestNum: number
   let botBiggestNum: number
 
