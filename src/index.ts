@@ -1,5 +1,8 @@
 const inquirer = require('inquirer')
 
+import { turnKQJto10, printCard } from './utils/helpers'
+import { findBiggerSuit, findNumberScore } from './utils/logics'
+
 const suits = ['♣️', '♦️', '♥️', '♠️']
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
 
@@ -16,90 +19,13 @@ const buildADeck = (): string[][] => {
 
 let deck = buildADeck()
 
-// function to generate random number from 0 to assigned parameter
-const generateRandomNumber = (num: number): number => {
-  return Math.floor(Math.random() * num)
-}
-
 // function to return a random card from deck and remove that card from deck
-const drawACard = (num: number): string[] => {
-  const randomIndex = generateRandomNumber(num)
+const drawACard = (): string[] => {
+  const randomIndex = Math.floor(Math.random()*(deck.length))
   const chosenCard = deck[randomIndex]
 
   deck = deck.filter((card) => card !== chosenCard)
   return chosenCard
-}
-
-// turn K, Q, J into the value of 10 and A into the value of 1
-const turnKQJto10 = (array: string[]): number => {
-  let number: number = 0
-  if (numbers.indexOf(array[1]) < 8) {
-    number = numbers.indexOf(array[1]) + 2
-  } else if (numbers.indexOf(array[1]) > 7 && numbers.indexOf(array[1]) < 11) {
-    number = 10
-  } else if (numbers.indexOf(array[1]) === 11) {
-    number = 1
-  }
-  return number
-}
-
-// find the suit of the card with bigger number
-const findBiggerSuit = (
-  arrayA: string[],
-  arrayB: string[],
-  arrayC: string[] | null = null
-): string => {
-  if (!arrayC) {
-    const cardWithBiggerNum =
-      numbers.indexOf(arrayA[1]) > numbers.indexOf(arrayB[1]) ? arrayA : arrayB
-    return cardWithBiggerNum[0]
-  } else {
-    const max = Math.max(
-      numbers.indexOf(arrayA[1]),
-      numbers.indexOf(arrayB[1]),
-      numbers.indexOf(arrayC[1])
-    )
-    if (max === numbers.indexOf(arrayA[1])) {
-      return arrayA[0]
-    } else if (max === numbers.indexOf(arrayB[1])) {
-      return arrayB[0]
-    } else {
-      return arrayC[0]
-    }
-  }
-}
-
-// find the score of the number of the two cards
-const findNumberScore = (
-  arrayA: string[],
-  arrayB: string[],
-  arrayC: string[] | null = null
-): number => {
-  let numA: number
-  let numB: number
-  let numC = 0
-
-  numA = turnKQJto10(arrayA)
-  numB = turnKQJto10(arrayB)
-
-  if (arrayC) {
-    numC = turnKQJto10(arrayC)
-  }
-
-  let sum = numA + numB + numC
-
-  if (sum === 20 || sum === 30) {
-    sum = 0
-  } else if (sum > 19) {
-    sum -= 20
-  } else if (sum > 9 && sum < 20) {
-    sum -= 10
-  }
-  return sum
-}
-
-const printCard = (cardArray: string[]) => {
-  return `${cardArray[1]} ${cardArray[0]}`
 }
 
 interface GameCards {
@@ -136,10 +62,11 @@ const gameLogic = (gameCards: GameCards): string => {
 
 // gameplay
 const playGame = () => {
-  const userFirstCard = drawACard(48)
-  const userSecondCard = drawACard(47)
-  const botFirstCard = drawACard(46)
-  const botSecondCard = drawACard(45)
+  const userFirstCard = drawACard()
+  const botFirstCard = drawACard()
+  const userSecondCard = drawACard()
+  const botSecondCard = drawACard()
+
   let botDrawCard: string[] | undefined
   let userDrawCard: string[] | undefined
 
@@ -150,7 +77,7 @@ const playGame = () => {
   let botNumScore = findNumberScore(botFirstCard, botSecondCard)
 
   if (botNumScore < 5) {
-    botDrawCard = drawACard(44)
+    botDrawCard = drawACard()
     botSuitScore = findBiggerSuit(botFirstCard, botSecondCard, botDrawCard)
     botNumScore = findNumberScore(botFirstCard, botSecondCard, botDrawCard)
   }
@@ -171,7 +98,7 @@ const playGame = () => {
       ])
       .then((answer: { response: string }) => {
         if (answer.response === 'yes') {
-          userDrawCard = drawACard(43)
+          userDrawCard = drawACard()
           userSuitScore = findBiggerSuit(
             userFirstCard,
             userSecondCard,
