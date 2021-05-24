@@ -12,7 +12,7 @@
     "test": "jest ./src/tests/logics.test.ts"
   },
   "author": "Min Myat",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@types/inquirer": "^7.3.1",
     "inquirer": "^8.1.0",
