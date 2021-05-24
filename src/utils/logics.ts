@@ -1,4 +1,4 @@
-import { turnKQJto10 } from './helpers'
+import { turnKQJto10, findTheBiggestNum } from './helpers'
 
 const suits = ['♣️', '♦️', '♥️', '♠️']
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
@@ -122,14 +122,6 @@ export interface GameCards {
   botFirst: string[]
   botSecond: string[]
   botThird?: string[]
-}
-
-const findTheBiggestNum = (cardA: string[], cardB: string[], cardC: string[] | undefined): number => {
-  if(cardC) {
-    return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]), numbers.indexOf(cardC[1]))
-  } else {
-    return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]))
-  }
 }
 
 // decide the winner

@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gameLogic = exports.findNumberScore = exports.findBiggerSuit = void 0;
 const helpers_1 = require("./helpers");
 const suits = ['♣️', '♦️', '♥️', '♠️'];
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A'];
 // find the suit of the card with largest number
-const findBiggerSuit = (firstCard, secondCard, thirdCard = null) => {
+exports.findBiggerSuit = (firstCard, secondCard, thirdCard = null) => {
     if (!thirdCard) {
         if (firstCard[1] !== secondCard[1]) {
             const cardWithBiggerNum = numbers.indexOf(firstCard[1]) > numbers.indexOf(secondCard[1])
@@ -77,9 +76,8 @@ const findBiggerSuit = (firstCard, secondCard, thirdCard = null) => {
         }
     }
 };
-exports.findBiggerSuit = findBiggerSuit;
 // find the score of the number of the cards
-const findNumberScore = (firstCard, secondCard, thirdCard = null) => {
+exports.findNumberScore = (firstCard, secondCard, thirdCard = null) => {
     let numA;
     let numB;
     let numC = 0;
@@ -100,32 +98,23 @@ const findNumberScore = (firstCard, secondCard, thirdCard = null) => {
     }
     return sum;
 };
-exports.findNumberScore = findNumberScore;
-const findTheBiggestNum = (cardA, cardB, cardC) => {
-    if (cardC) {
-        return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]), numbers.indexOf(cardC[1]));
-    }
-    else {
-        return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]));
-    }
-};
 // decide the winner
-const gameLogic = (gameCards) => {
+exports.gameLogic = (gameCards) => {
     let winner = '';
     const { userNum, botNum, userSuit, botSuit, userFirst, userSecond, userThird, botFirst, botSecond, botThird, } = gameCards;
     let userBiggestNum;
     let botBiggestNum;
     if (userThird) {
-        userBiggestNum = findTheBiggestNum(userFirst, userSecond, userThird);
+        userBiggestNum = helpers_1.findTheBiggestNum(userFirst, userSecond, userThird);
     }
     else {
-        userBiggestNum = findTheBiggestNum(userFirst, userSecond, undefined);
+        userBiggestNum = helpers_1.findTheBiggestNum(userFirst, userSecond, undefined);
     }
     if (botThird) {
-        botBiggestNum = findTheBiggestNum(botFirst, botSecond, botThird);
+        botBiggestNum = helpers_1.findTheBiggestNum(botFirst, botSecond, botThird);
     }
     else {
-        botBiggestNum = findTheBiggestNum(botFirst, botSecond, undefined);
+        botBiggestNum = helpers_1.findTheBiggestNum(botFirst, botSecond, undefined);
     }
     if (userNum === botNum && userSuit === botSuit) {
         if (userBiggestNum > botBiggestNum) {
@@ -157,4 +146,3 @@ const gameLogic = (gameCards) => {
     }
     return winner;
 };
-exports.gameLogic = gameLogic;

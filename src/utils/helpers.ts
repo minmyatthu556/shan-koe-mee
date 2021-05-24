@@ -17,3 +17,12 @@ export const turnKQJto10 = (card: string[]): number => {
 export const printCard = (cardArray: string[]) => {
   return `${cardArray[1]} ${cardArray[0]}`
 }
+
+// find the index of the biggest number out of three cards
+export const findTheBiggestNum = (cardA: string[], cardB: string[], cardC: string[] | undefined): number => {
+  if(cardC) {
+    return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]), numbers.indexOf(cardC[1]))
+  } else {
+    return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]))
+  }
+}

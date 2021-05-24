@@ -5,9 +5,6 @@ import {
   GameCards,
 } from '../utils/logics'
 
-// const suits = ['♣️', '♦️', '♥️', '♠️']
-// const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
-
 describe('The game should return the card with the bigger suit', () => {
   describe('With two cards', () => {
     test('with two different cards', () => {
