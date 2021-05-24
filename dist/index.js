@@ -23,32 +23,6 @@ const drawACard = () => {
     deck = deck.filter((card) => card !== chosenCard);
     return chosenCard;
 };
-// decide the winner
-const gameLogic = (gameCards) => {
-    let winner = '';
-    const { userNum, botNum, userSuit, botSuit } = gameCards;
-    if ((userNum === 8 || userNum === 9) && botNum < 8) {
-        winner = 'User';
-    }
-    else if ((botNum === 8 || botNum === 9) && userNum < 8) {
-        winner = 'Bot';
-    }
-    else if (userNum > botNum) {
-        winner = 'User';
-    }
-    else if (botNum > userNum) {
-        winner = 'Bot';
-    }
-    else if (userNum === botNum) {
-        if (suits.indexOf(gameCards.userSuit) > suits.indexOf(gameCards.botSuit)) {
-            winner = 'User';
-        }
-        else if (suits.indexOf(gameCards.botSuit) > suits.indexOf(gameCards.userSuit)) {
-            winner = 'Bot';
-        }
-    }
-    return winner;
-};
 // gameplay
 const playGame = () => {
     const userFirstCard = drawACard();
@@ -92,8 +66,14 @@ const playGame = () => {
                 userSuit: userSuitScore,
                 botNum: Number(botNumScore),
                 botSuit: botSuitScore,
+                userFirst: userFirstCard,
+                userSecond: userSecondCard,
+                userThird: userDrawCard,
+                botFirst: botFirstCard,
+                botSecond: botSecondCard,
+                botThird: botDrawCard
             };
-            const winner = gameLogic(gameCards);
+            const winner = logics_1.gameLogic(gameCards);
             console.log(`Bot cards are: ${helpers_1.printCard(botFirstCard)} ${botDrawCard ? ' ,' : ' and'} ${helpers_1.printCard(botSecondCard)} ${botDrawCard ? ` and ${helpers_1.printCard(botDrawCard)}` : ''}`);
             console.log(`Bot score: Suits: ${botSuitScore}  and Number: ${botNumScore}\n`);
             if (winner === 'User') {

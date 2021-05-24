@@ -1,7 +1,7 @@
 const inquirer = require('inquirer')
 
 import { turnKQJto10, printCard } from './utils/helpers'
-import { findBiggerSuit, findNumberScore } from './utils/logics'
+import { findBiggerSuit, findNumberScore, gameLogic, GameCards } from './utils/logics'
 
 const suits = ['♣️', '♦️', '♥️', '♠️']
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
@@ -26,38 +26,6 @@ const drawACard = (): string[] => {
 
   deck = deck.filter((card) => card !== chosenCard)
   return chosenCard
-}
-
-interface GameCards {
-  userNum: number
-  userSuit: string
-  botNum: number
-  botSuit: string
-}
-
-// decide the winner
-const gameLogic = (gameCards: GameCards): string => {
-  let winner: string = ''
-  const { userNum, botNum, userSuit, botSuit } = gameCards
-
-  if ((userNum === 8 || userNum === 9) && botNum < 8) {
-    winner = 'User'
-  } else if ((botNum === 8 || botNum === 9) && userNum < 8) {
-    winner = 'Bot'
-  } else if (userNum > botNum) {
-    winner = 'User'
-  } else if (botNum > userNum) {
-    winner = 'Bot'
-  } else if (userNum === botNum) {
-    if (suits.indexOf(gameCards.userSuit) > suits.indexOf(gameCards.botSuit)) {
-      winner = 'User'
-    } else if (
-      suits.indexOf(gameCards.botSuit) > suits.indexOf(gameCards.userSuit)
-    ) {
-      winner = 'Bot'
-    }
-  }
-  return winner
 }
 
 // gameplay
@@ -119,6 +87,12 @@ const playGame = () => {
           userSuit: userSuitScore,
           botNum: Number(botNumScore),
           botSuit: botSuitScore,
+          userFirst: userFirstCard,
+          userSecond: userSecondCard,
+          userThird: userDrawCard,
+          botFirst: botFirstCard,
+          botSecond: botSecondCard,
+          botThird: botDrawCard
         }
 
         const winner = gameLogic(gameCards)

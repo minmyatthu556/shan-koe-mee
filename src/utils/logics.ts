@@ -3,6 +3,7 @@ import { turnKQJto10 } from './helpers'
 const suits = ['♣️', '♦️', '♥️', '♠️']
 const numbers = ['2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K', 'A']
 
+// find the suit of the card with largest number
 export const findBiggerSuit = (
   firstCard: string[],
   secondCard: string[],
@@ -23,7 +24,7 @@ export const findBiggerSuit = (
       }
     }
   } /* when the third card exists */ else {
-  /* if three cards have same number */
+    /* if three cards have same number */
     if (firstCard[1] === secondCard[1] && firstCard[1] === thirdCard[1]) {
       const max = Math.max(
         suits.indexOf(firstCard[0]),
@@ -108,4 +109,84 @@ export const findNumberScore = (
     sum -= 10
   }
   return sum
+}
+
+export interface GameCards {
+  userNum: number
+  userSuit: string
+  botNum: number
+  botSuit: string
+  userFirst: string[]
+  userSecond: string[]
+  userThird?: string[]
+  botFirst: string[]
+  botSecond: string[]
+  botThird?: string[]
+}
+
+const findTheBiggestNum = (cardA: string[], cardB: string[], cardC: string[] | undefined): number => {
+  if(cardC) {
+    return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]), numbers.indexOf(cardC[1]))
+  } else {
+    return Math.max(numbers.indexOf(cardA[1]), numbers.indexOf(cardB[1]))
+  }
+}
+
+// decide the winner
+export const gameLogic = (gameCards: GameCards): string => {
+  let winner: string = ''
+  const {
+    userNum,
+    botNum,
+    userSuit,
+    botSuit,
+    userFirst,
+    userSecond,
+    userThird,
+    botFirst,
+    botSecond,
+    botThird,
+  } = gameCards
+  let userBiggestNum: number
+  let botBiggestNum: number
+
+  if (userThird) {
+    userBiggestNum = findTheBiggestNum(userFirst, userSecond, userThird)
+  } else {
+    userBiggestNum = findTheBiggestNum(userFirst, userSecond, undefined)
+  }
+
+  if (botThird) {
+    botBiggestNum = findTheBiggestNum(botFirst, botSecond, botThird)
+  } else {
+    botBiggestNum = findTheBiggestNum(botFirst, botSecond, undefined)
+  }
+    
+
+  if (userNum === botNum && userSuit === botSuit) {
+    if(userBiggestNum > botBiggestNum) {
+      winner = 'User'
+    } else {
+      winner = 'Bot'
+    }
+  }
+
+  if ((userNum === 8 || userNum === 9) && botNum < 8) {
+    winner = 'User'
+  } else if ((botNum === 8 || botNum === 9) && userNum < 8) {
+    winner = 'Bot'
+  } else if (userNum > botNum) {
+    winner = 'User'
+  } else if (botNum > userNum) {
+    winner = 'Bot'
+  } else if (userNum === botNum) {
+    if (suits.indexOf(gameCards.userSuit) > suits.indexOf(gameCards.botSuit)) {
+      winner = 'User'
+    } else if (
+      suits.indexOf(gameCards.botSuit) > suits.indexOf(gameCards.userSuit)
+    ) {
+      winner = 'Bot'
+    }
+  }
+  return winner
 }
