@@ -119,8 +119,8 @@ describe('The game should return the winner', () => {
         userNum: 5,
         userSuit: '♥️',
         botNum: 5,
-        botSuit: '♠️',
-        botFirst: ['♥️', 'A'],
+        botSuit: '♣️',
+        botFirst: ['♣️', 'A'],
         botSecond: ['♥️', '4'],
         userFirst: ['♠️', '3'],
         userSecond: ['♠️', '2'],
@@ -203,6 +203,21 @@ describe('The game should return the winner', () => {
         botThird: ['♥️', 'A'],
       }
       expect(gameLogic(gameCards)).toBe('User')
+    })
+    test('when both have same biggest number cards and the bot has bigger suit', () => {
+      const gameCards: GameCards = {
+        userNum: 7,
+        userSuit: '♥️',
+        botNum: 7,
+        botSuit: '♠️',
+        userFirst: ['♥️', '6'],
+        userSecond: ['♥️', 'K'],
+        userThird: ['♥️', 'A'],
+        botFirst: ['♠️', '2'],
+        botSecond: ['♠️', '4'],
+        botThird: ['♠️', 'A'],
+      }
+      expect(gameLogic(gameCards)).toBe('Bot')
     })
   })
 })
