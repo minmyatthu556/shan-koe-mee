@@ -116,32 +116,40 @@ exports.gameLogic = (gameCards) => {
     else {
         botBiggestNum = helpers_1.findTheBiggestNum(botFirst, botSecond, undefined);
     }
-    if (userNum === botNum && userSuit === botSuit) {
-        if (userBiggestNum > botBiggestNum) {
-            winner = 'User';
-        }
-        else {
-            winner = 'Bot';
-        }
-    }
-    if ((userNum === 8 || userNum === 9) && botNum < 8) {
+    if ((userNum === 8 || userNum === 9) && botNum < 8) { //autowin
         winner = 'User';
     }
     else if ((botNum === 8 || botNum === 9) && userNum < 8) {
         winner = 'Bot';
     }
-    else if (userNum > botNum) {
+    else if (userNum > botNum) { // normal condition
         winner = 'User';
     }
     else if (botNum > userNum) {
         winner = 'Bot';
     }
-    else if (userNum === botNum) {
-        if (suits.indexOf(gameCards.userSuit) > suits.indexOf(gameCards.botSuit)) {
+    else if (userNum === botNum) { // if they have same number score
+        if (!userThird && botThird) { // if user has two cards and bot as three and vice versa
             winner = 'User';
         }
-        else if (suits.indexOf(gameCards.botSuit) > suits.indexOf(gameCards.userSuit)) {
+        else if (!botThird && userThird) {
             winner = 'Bot';
+        }
+        else {
+            if (userBiggestNum > botBiggestNum) { // if both have two or three cards each
+                winner = 'User';
+            }
+            else if (botBiggestNum > userBiggestNum) {
+                winner = 'Bot';
+            }
+            else {
+                if (suits.indexOf(gameCards.userSuit) > suits.indexOf(gameCards.botSuit)) {
+                    winner = 'User';
+                }
+                else if (suits.indexOf(gameCards.botSuit) > suits.indexOf(gameCards.userSuit)) {
+                    winner = 'Bot';
+                }
+            }
         }
     }
     return winner;
